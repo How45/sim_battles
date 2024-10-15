@@ -122,26 +122,31 @@ class Pokemon_info():
 
     def pokemon_move(self, name: str) -> None:
         """
-        Retrieves, extracts, added to dictionary for each of the 6 moves there is on pokemon
+        Retrieves, extracts, added to dictionary for each of the moves there is on pokemon
+        Repeat if max 6 times
 
         Paramaters
         ----------
         name : str
             Name of the move
         """
-        move_stat = {}
-        move = poke_move(name)
 
-        # Retrievein data that we need
-        move['Category'] = move.damage_class.name
-        move_stat['Accuracy'] = move.accuracy
-        move_stat['Power'] = move.power
-        move_stat['PP'] = move.pp
-        move_stat['Priority'] = move.priority
-        move_stat['Type'] = move.type.name
+        if len(self.move_set) < 6:
+            move_stat = {}
+            move = poke_move(name)
 
-        # Aligment might be None
-        move_stat['Effect'] = move.ailgmnet.name
-        move_stat['Effect_chance'] = move.ailgmnet.ailgmnet_chance
+            # Retrievein data that we need
+            move['Category'] = move.damage_class.name
+            move_stat['Accuracy'] = move.accuracy
+            move_stat['Power'] = move.power
+            move_stat['PP'] = move.pp
+            move_stat['Priority'] = move.priority
+            move_stat['Type'] = move.type.name
 
-        self.move_set[name] = move_stat
+            # Aligment might be None
+            move_stat['Effect'] = move.ailgmnet.name
+            move_stat['Effect_chance'] = move.ailgmnet.ailgmnet_chance
+
+            self.move_set[name] = move_stat
+        else:
+            raise f"Can't add any more moves, already 6 moves i.e. {print([m for m in self.move_set])}"
